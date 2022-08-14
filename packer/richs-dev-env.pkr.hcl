@@ -7,13 +7,6 @@ packer {
   }
 }
 
-# Variables
-variable "docker_image" {
-  type        = string
-  description = "The base Docker image to start from"
-  default     = "alpine:3"
-}
-
 # Sources
 source "docker" "container" {
   image  = var.docker_image
