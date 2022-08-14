@@ -1,3 +1,6 @@
+# variables.pkr.hcl files are used to define variables which are settable at runtime.
+# This includes descriptions and suitable defaults for the case when the user doesn't specify a variable's value at runtime.
+
 # Variables
 variable "docker_image" {
   type        = string
