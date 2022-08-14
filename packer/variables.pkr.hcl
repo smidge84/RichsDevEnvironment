@@ -7,12 +7,18 @@ variable "docker_image" {
 
 variable "ansible_version" {
   type        = string
-  description = "Version of Ansible to install"
+  description = "Version of Ansible"
+  default     = "latest"
+}
+
+variable "docker_sdk_python_version" {
+  type        = string
+  description = "Version of Docker SDK for Python"
   default     = "latest"
 }
 
 variable "docker_ce_version" {
   type        = string
-  description = "Version of Docker CE to install"
+  description = "Version of Docker CE"
   default     = "latest"
 }

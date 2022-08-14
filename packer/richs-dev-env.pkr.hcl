@@ -22,7 +22,24 @@ build {
 
   # Provisioners
   provisioner "shell" {
-    inline = ["echo Running ${var.docker_image} Docker image."]
+    inline = [
+      "echo Running ${var.docker_image} Docker image."
+    ]
+  }
+
+  provisioner "shell" {
+    inline = [
+      "apk update",
+      "apk add --no-cache bash"
+    ]
+  }
+
+  provisioner "shell" {
+    environment_vars = [
+      "ANSIBLE_VERSION=${var.ansible_version}",
+      "DOCKER_SDK_VERSION=${var.docker_sdk_python_version}"
+    ]
+    script = "./ansible/install_ansible.sh"
   }
 
   # Post Processors
