@@ -27,7 +27,7 @@ build {
     inline = [
       "apk update",
       "apk upgrade",
-      "apk add --no-cache bash ca-certificates openssl curl tar openssh-client sshpass git shadow"
+      "apk add --no-cache bash ca-certificates openssl curl tar openssh-client sshpass git shadow packer"
     ]
   }
 
