@@ -8,30 +8,33 @@ packer {
 }
 
 # Sources
-source "docker" "container" {
+source "docker" "dev-env" {
   image  = var.docker_image
   commit = true
 }
 
 # Build
 build {
-  name = "learn-packer"
+  name = "richs-dev-env"
   sources = [
-    "source.docker.container"
+    "source.docker.dev-env"
   ]
 
   # Provisioners
+
+  # Update APK package manager & install core system packages
   provisioner "shell" {
     inline = [
-      "echo Running ${var.docker_image} Docker image."
+      "apk update",
+      "apk add --no-cache bash ca-certificates openssl curl tar openssh-client sshpass git"
     ]
   }
 
   provisioner "shell" {
-    inline = [
-      "apk update",
-      "apk add --no-cache bash"
+    environment_vars = [
+      "PYTHON3_VERSION=${var.python3_version}"
     ]
+    script = "./python3/install_python3.sh"
   }
 
   provisioner "shell" {
@@ -40,6 +43,14 @@ build {
       "DOCKER_SDK_VERSION=${var.docker_sdk_python_version}"
     ]
     script = "./ansible/install_ansible.sh"
+  }
+
+  # Clearing out package caches
+  provisioner "shell" {
+    inline = [
+      "rm -rf /var/cache/apk/*",
+      "rm -rf /root/.cache/pip/*"
+    ]
   }
 
   # Post Processors
