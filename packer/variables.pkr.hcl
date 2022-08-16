@@ -25,3 +25,9 @@ variable "docker_ce_version" {
   description = "Version of Docker CE"
   default     = "latest"
 }
+
+variable "python3_version" {
+  type        = string
+  description = "Version of Python 3"
+  default     = "latest"
+}
