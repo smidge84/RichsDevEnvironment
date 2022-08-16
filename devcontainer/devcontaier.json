@@ -16,5 +16,8 @@
                 "redhat.ansible"
             ]
         }
-    }
+    },
+    "mounts" : [
+        "source=${localEnv:HOME}/.ssh,target=/home/cayde/.ssh,type=bind,consistency=cached"
+    ]
 }
