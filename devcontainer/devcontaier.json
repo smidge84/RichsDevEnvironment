@@ -1,0 +1,19 @@
+{
+    "image": "n0sn1b0r/richs-dev-env:latest",
+    "containerUser" : "cayde",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "eamodio.gitlens",
+                "mhutchie.git-graph",
+                "equinusocio.vsc-community-material-theme",
+                "yzhang.markdown-all-in-one",
+                "redhat.vscode-yaml",
+                "sketchbuch.vsc-workspace-sidebar",
+                "mohsen1.prettify-json",
+                "ue.alphabetical-sorter",
+                "redhat.ansible"
+            ]
+        }
+    }
+}
