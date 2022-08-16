@@ -27,7 +27,7 @@ build {
     inline = [
       "apk update",
       "apk upgrade",
-      "apk add --no-cache bash ca-certificates openssl curl tar openssh-client sshpass git"
+      "apk add --no-cache bash ca-certificates openssl curl tar openssh-client sshpass git shadow"
     ]
   }
 
@@ -41,7 +41,6 @@ build {
   provisioner "shell" {
     environment_vars = [
       "ANSIBLE_VERSION=${var.ansible_version}",
-      "DOCKER_SDK_VERSION=${var.docker_sdk_python_version}"
     ]
     script = "./ansible/install_ansible.sh"
   }
