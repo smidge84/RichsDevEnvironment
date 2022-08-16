@@ -15,7 +15,9 @@ set -e
 # Add popular Python modules which support Ansibile
 echo "==> Adding Additional Python Modules..."
 python_packages="py3-boto py3-dateutil py3-httplib2 py3-jinja2 py3-paramiko py3-yaml"
-python_modules="boto3 python-dateutil httplib2 Jinja2 paramiko pyyaml ansible-lint"
+# Ansible Lint module doesn't work with Ansible 2.9.6. This module was only installed to support the Ansible VS Code extension, so it's not essential.
+#python_modules="boto3 python-dateutil httplib2 Jinja2 paramiko pyyaml ansible-lint"
+python_modules="boto3 python-dateutil httplib2 Jinja2 paramiko pyyaml"
 pip install ${python_modules}
 
 echo "==> Adding Ansible..."
