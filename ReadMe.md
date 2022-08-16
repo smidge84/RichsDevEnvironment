@@ -6,11 +6,25 @@ This Docker image will be a heavy weight image, approximately 600MB
 
 All this should be put into one of my own GitHub repos, so I can maintain the files correctly, and can easily rebuild things when I get new laptops.
 
+## Pre-requisites
+To be able to utilise this, the following pre-requisites need to be satisfied:
+
+* VS Code installed
+* Remote Containers extension installed
+* Docker Desktop installed
+
+## Useful Documentation on Remote Contaiers
+
+* [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)
+* [Getting Started with development in Containers](https://code.visualstudio.com/docs/remote/containers-tutorial)
+* [Create a development container](https://code.visualstudio.com/docs/remote/create-dev-container)
+* [Advanced development container configuration](https://code.visualstudio.com/remote/advancedcontainers/overview)
+
 ## Main Requirements
 
 * Based on Alpine 3
 * Start from the official "Docker in Docker" image (provided by Docker)
-  * Fortuately this is based on Alpine 3, and will save me a lot of work ennsuring Docker works correctly
+  * Fortunately this is based on Alpine 3, and will save me a lot of work ennsuring Docker works correctly
   * `docker:20.10.17`
 * Install Ansible 2.9.6 (because this is the version in Ubuntu 20.04)
   * Follow the steps in my existing "ansible-docker" project in Luminate/DevOpsPOCs repo
@@ -41,7 +55,9 @@ This means also that SSH keys can go into the user's SSH directory like normal.
 ## Secondary Requirements
 
 * Bind mount in host Git config
+  * Support the location of this config for both Mac, Liux & Windows
 * Bind mount in SSH keys
+  * * Support the location of this config for both Mac, Liux & Windows
 * Ensure that we can utilise Git from within the Dev Container
 
 ## Building Requiremets
@@ -60,6 +76,7 @@ What sort of things will I need to setup in the `devcontainer.json` file?
 ## Questions
 
 * How do you bind mount in the Docker Socket on Windows so that Docker in Docker (DooD) works?
+* 
 
 ## Tutorials
 
