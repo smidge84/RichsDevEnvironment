@@ -20,7 +20,7 @@ build {
     "source.docker.dev-env"
   ]
 
-  # Provisioners
+  # PROVISIONERS #
 
   # Update APK package manager & install core system packages
   provisioner "shell" {
@@ -31,6 +31,7 @@ build {
     ]
   }
 
+  # Setup Python 3
   provisioner "shell" {
     environment_vars = [
       "PYTHON3_VERSION=${var.python3_version}"
@@ -38,6 +39,7 @@ build {
     script = "./python3/install_python3.sh"
   }
 
+  # Setup Ansible
   provisioner "shell" {
     environment_vars = [
       "ANSIBLE_VERSION=${var.ansible_version}",
@@ -61,7 +63,7 @@ build {
     ]
   }
 
-  # Post Processors
+  # POST PROCESSORS #
   post-processor "docker-tag" {
     repository = "n0sn1b0r/richs-dev-env"
     tags       = ["latest"]
