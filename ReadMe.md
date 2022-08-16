@@ -32,6 +32,10 @@ To be able to utilise this, the following pre-requisites need to be satisfied:
   * This must be Molecule version 5.4.0 because in version 6.0.0 they discontinued support for Ansible 2.9 (unless I want to use the latest release of Ansible)
   * If we don't use this specific version of Molecule, PIP will update Ansible
   * [Molecule Docs - Installation](https://molecule.readthedocs.io/en/latest/installation.html#install)
+* Try to install the latest available version of the VS code server program at build time. This is to hopefully improve the start-up time of the contnainer
+  * Without the code-server installed, this will have to be installed everytime the container is started
+  * The performance improvement of doing this will be lost when a newer version of the VS Code Server becomes available, as it will need to be updated upon container initialisation anyway
+  * Might be good to setup an automated pipeline to check for a new version and re-build the docker image if necessary
 
 Be sure to clean up build depenndencies and caches.
 
