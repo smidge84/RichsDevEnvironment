@@ -30,7 +30,4 @@ pip install python-keyczar
 echo "==> Installing Docker SDK for Python..." && \
 pip install "docker"
 
-echo "==> Cleaning up..."
-apk del build-dependencies
-
 echo "==> END PYTHON3 SETUP SCRIPT"

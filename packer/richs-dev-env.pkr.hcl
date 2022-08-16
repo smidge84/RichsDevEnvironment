@@ -26,6 +26,7 @@ build {
   provisioner "shell" {
     inline = [
       "apk update",
+      "apk upgrade",
       "apk add --no-cache bash ca-certificates openssl curl tar openssh-client sshpass git"
     ]
   }
@@ -48,8 +49,16 @@ build {
   # Clearing out package caches
   provisioner "shell" {
     inline = [
+      "apk del build-dependencies",
       "rm -rf /var/cache/apk/*",
       "rm -rf /root/.cache/pip/*"
+    ]
+  }
+
+  # Create step-down user
+  provisioner "shell" {
+    inline = [
+      "adduser -D -s /bin/bash cayde"
     ]
   }
 

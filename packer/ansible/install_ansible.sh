@@ -15,7 +15,7 @@ set -e
 # Add popular Python modules which support Ansibile
 echo "==> Adding Additional Python Modules..."
 python_packages="py3-boto py3-dateutil py3-httplib2 py3-jinja2 py3-paramiko py3-yaml"
-python_modules="boto3 python-dateutil httplib2 Jinja2 paramiko pyyaml"
+python_modules="boto3 python-dateutil httplib2 Jinja2 paramiko pyyaml ansible-lint"
 pip install ${python_modules}
 
 echo "==> Adding Ansible..."
