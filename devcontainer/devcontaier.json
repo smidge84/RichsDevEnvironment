@@ -1,5 +1,6 @@
 {
-    "image": "n0sn1b0r/richs-dev-env:latest",
+    "name" : "Richs Dev Container",
+    "image" : "n0sn1b0r/richs-dev-env:latest",
     "containerUser" : "cayde",
     "customizations": {
         "vscode": {
