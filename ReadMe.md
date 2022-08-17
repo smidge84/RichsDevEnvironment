@@ -64,7 +64,7 @@ This means also that SSH keys can go into the user's SSH directory like normal.
 * Bind mount in host Git config
   * Support the location of this config for both Mac, Liux & Windows
 * Bind mount in SSH keys
-  * * Support the location of this config for both Mac, Liux & Windows
+  * Support the location of this config for both Mac, Liux & Windows
 * Ensure that we can utilise Git from within the Dev Container
 
 ## Building Requiremets
@@ -83,7 +83,6 @@ What sort of things will I need to setup in the `devcontainer.json` file?
 ## Questions
 
 * How do you bind mount in the Docker Socket on Windows so that Docker in Docker (DooD) works?
-* 
 
 ## Tutorials
 
