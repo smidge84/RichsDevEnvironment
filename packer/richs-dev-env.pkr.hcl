@@ -2,19 +2,71 @@ packer {
   required_plugins {
     docker = {
       version = ">= 0.0.7"
-      source = "github.com/hashicorp/docker"
+      source  = "github.com/hashicorp/docker"
     }
   }
 }
 
-source "docker" "ubuntu" {
-  image  = "ubuntu:jammy"
+# Sources
+source "docker" "dev-env" {
+  image  = var.docker_image
   commit = true
 }
 
+# Build
 build {
-  name    = "learn-packer"
+  name = "richs-dev-env"
   sources = [
-    "source.docker.ubuntu"
+    "source.docker.dev-env"
   ]
+
+  # PROVISIONERS #
+
+  # Update APK package manager & install core system packages
+  provisioner "shell" {
+    inline = [
+      "apk update",
+      "apk upgrade",
+      "apk add --no-cache bash ca-certificates openssl curl tar openssh-client sshpass git shadow packer"
+    ]
+  }
+
+  # Setup Python 3
+  provisioner "shell" {
+    environment_vars = [
+      "PYTHON3_VERSION=${var.python3_version}"
+    ]
+    script = "./python3/install_python3.sh"
+  }
+
+  # Setup Ansible
+  provisioner "shell" {
+    environment_vars = [
+      "ANSIBLE_VERSION=${var.ansible_version}",
+    ]
+    script = "./ansible/install_ansible.sh"
+  }
+
+  # Clearing out package caches
+  provisioner "shell" {
+    inline = [
+      "apk del build-dependencies",
+      "rm -rf /var/cache/apk/*",
+      "rm -rf /root/.cache/pip/*"
+    ]
+  }
+
+  # Create step-down user
+  provisioner "shell" {
+    inline = [
+      "adduser -D -s /bin/bash cayde"
+    ]
+  }
+
+  # POST PROCESSORS #
+  post-processor "docker-tag" {
+    repository = "n0sn1b0r/richs-dev-env"
+    tags       = ["latest"]
+    force      = true
+  }
 }
