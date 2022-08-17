@@ -15,6 +15,7 @@ To be able to utilise this, the following pre-requisites need to be satisfied:
 
 ## Useful Documentation on Remote Contaiers
 
+* [Please, everyone, put your entire development environment in Github](https://www-freecodecamp-org.cdn.ampproject.org/v/s/www.freecodecamp.org/news/put-your-dev-env-in-github/amp/?amp_js_v=a2&amp_gsa=1#referrer=https%3A%2F%2Fwww.google.com&amp_tf=From%20%251%24s&ampshare=https%3A%2F%2Fwww.freecodecamp.org%2Fnews%2Fput-your-dev-env-in-github%2F)
 * [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)
 * [Getting Started with development in Containers](https://code.visualstudio.com/docs/remote/containers-tutorial)
 * [Create a development container](https://code.visualstudio.com/docs/remote/create-dev-container)
