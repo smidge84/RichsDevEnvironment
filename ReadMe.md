@@ -12,6 +12,7 @@ To be able to utilise this, the following pre-requisites need to be satisfied:
 * VS Code installed
 * Remote Containers extension installed
 * Docker Desktop installed
+* Packer installed
 
 ## Useful Documentation on Remote Contaiers
 
