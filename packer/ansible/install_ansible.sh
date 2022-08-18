@@ -3,7 +3,6 @@
 echo "==> ANSIBLE SETUP SCRIPT"
 
 echo "Target Ansible version = ${ANSIBLE_VERSION}"
-echo "Target Docker SDK for Python version = ${DOCKER_SDK_VERSION}"
 
 if [[ ! "${ANSIBLE_VERSION}" =~ latest ]]; then
     ansible_tag="==${ANSIBLE_VERSION}"
