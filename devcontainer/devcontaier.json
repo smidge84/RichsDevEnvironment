@@ -13,7 +13,8 @@
                 "sketchbuch.vsc-workspace-sidebar",
                 "mohsen1.prettify-json",
                 "ue.alphabetical-sorter",
-                "redhat.ansible"
+                "redhat.ansible",
+                "hashicorp.hcl"
             ]
         }
     },
