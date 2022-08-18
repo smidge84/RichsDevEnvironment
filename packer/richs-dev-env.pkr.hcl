@@ -52,7 +52,7 @@ build {
   provisioner "shell" {
     inline = [
       "adduser -D -s /bin/zsh -g \"Cayde 6\" cayde",
-      "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" \"\" --unattended"
+      "su cayde -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended\""
     ]
   }
 
