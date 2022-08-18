@@ -1,0 +1,57 @@
+---
+- name: "Setup Dev Container Docker Image"
+  hosts: '{{ target | default("all") }}'
+  connection: local
+
+  vars:
+    existing_packages:
+      - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+    apk_packages:
+      - docker
+      - docker-cli
+      - docker-compose
+      - containerd
+      - docker-bash-completion
+      - docker-zsh-completion
+      - docker-compose-bash-completion
+      - docker-compose-zsh-completion
+
+  tasks:
+  - name: "Update package manager"
+    ansible.builtin.apk:
+      update_cache: yes
+
+  - name: "Remove existig packages"
+    ansible.builtin.apk:
+      name: "{{ existing_packages + apk_packages }}"
+      state: absent
+    register: apk_result
+    debugger: on_failed
+
+  - name: "PRINT"
+    ansible.builtin.debug:
+      var: apk_result
+  
+  - name: "Install Docker packages"
+    ansible.builtin.apk:
+      name: "{{ apk_packages }}"
+      state: present
+    register: apk_result
+
+  - name: "PRINT"
+    ansible.builtin.debug:
+      var: apk_result
+
+  - name: "Install supportig Python modules"
+    ansible.builtin.pip:
+      name:
+        - docker
+    register: pip_result
+
+  - name: "PRINT"
+    ansible.builtin.debug:
+      var: pip_result

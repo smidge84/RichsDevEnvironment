@@ -10,6 +10,7 @@ packer {
 # Sources
 source "docker" "dev-env" {
   image  = var.docker_image
+  pull   = true
   commit = true
 }
 
@@ -27,7 +28,7 @@ build {
     inline = [
       "apk update",
       "apk upgrade",
-      "apk add --no-cache bash ca-certificates openssl curl tar openssh-client sshpass git shadow packer"
+      "apk add --no-cache bash zsh ca-certificates gnupg openssl curl tar openssh-client sshpass git shadow packer"
     ]
   }
 
@@ -47,6 +48,20 @@ build {
     script = "./ansible/install_ansible.sh"
   }
 
+  # Create step-down user
+  provisioner "shell" {
+    inline = [
+      "adduser -D -s /bin/zsh -g \"Cayde 6\" cayde",
+      "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" \"\" --unattended"
+    ]
+  }
+
+  # Now use Ansible to setup the rest of the image
+  provisioner "ansible-local" {
+    playbook_file   = "./ansible/playbooks/richs-dev-environment.yaml"
+    extra_arguments = ["--extra-vars", "\"target=localhost\""]
+  }
+
   # Clearing out package caches
   provisioner "shell" {
     inline = [
@@ -56,17 +71,16 @@ build {
     ]
   }
 
-  # Create step-down user
-  provisioner "shell" {
-    inline = [
-      "adduser -D -s /bin/bash cayde"
-    ]
-  }
-
   # POST PROCESSORS #
-  post-processor "docker-tag" {
-    repository = "n0sn1b0r/richs-dev-env"
-    tags       = ["latest"]
-    force      = true
+  post-processors {
+    post-processor "docker-tag" {
+      repository = "n0sn1b0r/richs-dev-env"
+      tags       = ["latest"]
+      force      = true
+    }
+
+    // post-processor "docker-push" {
+    //   login = true
+    // }
   }
 }

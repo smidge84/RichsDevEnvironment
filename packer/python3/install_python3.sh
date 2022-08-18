@@ -25,9 +25,4 @@ pip install --upgrade pip
 pip install wheel
 pip install python-keyczar
 
-# Add Python support for Docker 
-# TODO: Move this later to be part of the tasks when Docker is installed
-echo "==> Installing Docker SDK for Python..." && \
-pip install "docker"
-
 echo "==> END PYTHON3 SETUP SCRIPT"
