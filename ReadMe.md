@@ -106,3 +106,14 @@ Working with filesystem mounts within the container is going to be tricky. In th
 To work around this, an environment variable is available inside the dev container, `HOST_WORKSPACE_FOLDER`. This is the path to the workspace on the host filesyetem which has been mounted inside the dev container. This environment variable should be used in place of `pwd` when specifying the absolute path for the source of the bind mount.
 
 This is by no means perfect because when working with files checked into version control which use relative paths to the mount sources (likely to be found in Docker compose files or scripts) they will not be able to work in their official form because the dev container is using *Docker from Docker*, and adding the special environment variable is not desirable because we don't want that to be checked into version control because it will not be available when the version controlled files are used on other hosts, such as build agents, which aren't using *Docker from Docker*. I might need to find a more creative workaround for this, in the guise of something which will be begine when used of standard Linux systems. Something like having a shell alias for the `pwd` command which would return a modified path.
+
+## TODO
+
+Future enhancements for this dev container.
+
+1. Install Packer
+2. Work through the sections on the following page because they look like nice feature to have:
+   1. [Advanced container configuration](https://code.visualstudio.com/remote/advancedcontainers/overview)
+3. Install Terraform
+4. Support for using the AWS CLI???
+   1. This might be needed to support Terraform. Need to learn more
