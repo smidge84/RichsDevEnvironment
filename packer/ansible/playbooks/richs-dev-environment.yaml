@@ -4,13 +4,13 @@
   connection: local
 
   vars:
-    existing_packages:
+    existing_docker_packages:
       - docker
       - docker-engine
       - docker.io
       - containerd
       - runc
-    apk_packages:
+    docker_packages:
       - docker
       - docker-cli
       - docker-compose
@@ -34,7 +34,7 @@
 
   - name: "Remove existig packages"
     ansible.builtin.apk:
-      name: "{{ existing_packages + apk_packages }}"
+      name: "{{ existing_docker_packages + docker_packages }}"
       state: absent
     register: apk_result
     debugger: on_failed
@@ -45,7 +45,7 @@
   
   - name: "Install Docker packages"
     ansible.builtin.apk:
-      name: "{{ apk_packages }}"
+      name: "{{ docker_packages }}"
       state: present
     register: apk_result
 
