@@ -20,5 +20,8 @@
     "mounts" : [
         "source=${localEnv:HOME}/.ssh,target=/home/cayde/.ssh,type=bind,consistency=cached",
         "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
-    ]
+    ],
+    "remoteEnv": {
+        "HOST_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+    }
 }

@@ -96,4 +96,13 @@ The Dev container can support working with Docker. This is implemented by using 
 
 * [VS Code Dev Containers - Docker from Docker](https://github.com/microsoft/vscode-dev-containers/tree/main/containers/docker-from-docker)
 
-The points about a non-root user access the Docker socket has been resolved, but the point about bind mounting of files into a new container which is created from within the Dev continer will need more work. It is likely this will affect bind mounting of files into a new cotainer and also building of new Docker images. **To be revised later.**
+### Enabling non-root access to Docker in the container
+
+The points about a non-root user access the Docker socket seems to have been resolved without the use of `socat`. For some reason, now the image seems to have the standard permissions on the Docker socket inside the dev container by default, `root:docker`. This means that to give the runtime user access to the Docker socket, the user just needs to be added to the `docker` group. Will have to investigate if this works on a different machine to know if something on my Mac has caused this to work now.
+
+### Using bind mounts when working with Docker inside the container
+
+Working with filesystem mounts within the container is going to be tricky. In the use case of bind mounts, when the command is issued to the Docker daemon on the host machine, the source path of the bind mount is evaluated on the host machine's filesystem. This means that if the filesystem path inside the dev container is given as the source path, then the mount and command will fail. The Docker daemon needs the filesystem path as it is on the host system.
+To work around this, an environment variable is available inside the dev container, `HOST_WORKSPACE_FOLDER`. This is the path to the workspace on the host filesyetem which has been mounted inside the dev container. This environment variable should be used in place of `pwd` when specifying the absolute path for the source of the bind mount.
+
+This is by no means perfect because when working with files checked into version control which use relative paths to the mount sources (likely to be found in Docker compose files or scripts) they will not be able to work in their official form because the dev container is using *Docker from Docker*, and adding the special environment variable is not desirable because we don't want that to be checked into version control because it will not be available when the version controlled files are used on other hosts, such as build agents, which aren't using *Docker from Docker*. I might need to find a more creative workaround for this, in the guise of something which will be begine when used of standard Linux systems. Something like having a shell alias for the `pwd` command which would return a modified path.
