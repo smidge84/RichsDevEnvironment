@@ -89,3 +89,11 @@ What sort of things will I need to setup in the `devcontainer.json` file?
 Once the Dev Contaier is setup and working, I can then try it out by working through some of this guy's Ansible tutorial videos:
 
 * [Rapidly Build & Test Ansible Roles with Molecule + Docker](https://www.youtube.com/watch?v=DAnMyBZ8-Qs&list=PLMyOob-UkeytIleCbMlFfCzaunOh27hm6&index=11)
+
+## Docker Support
+
+The Dev container can support working with Docker. This is implemented by using a technique called *"Docker in Docker"* or also *"Docker from Docker"*, where the Docker socket from the host machine is bind mounted into the Dev container, so that any Docker commands are redirected to the Docker daemon of the host machine. This means we don't need to run another Docker daemon inside the Dev cotainer (this approach is referred to as *"Docker inside of Docker"*). The added benefit of the "Docker in Docker" approach is that all the rsources of the host Docker daemon are shared and available inside the Dev container. However, this approach does have some practical issues, which are explained here:
+
+* [VS Code Dev Containers - Docker from Docker](https://github.com/microsoft/vscode-dev-containers/tree/main/containers/docker-from-docker)
+
+The points about a non-root user access the Docker socket has been resolved, but the point about bind mounting of files into a new container which is created from within the Dev continer will need more work. It is likely this will affect bind mounting of files into a new cotainer and also building of new Docker images. **To be revised later.**

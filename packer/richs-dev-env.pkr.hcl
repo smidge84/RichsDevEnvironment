@@ -32,6 +32,18 @@ build {
     ]
   }
 
+  # Setup container init structure #
+  provisioner "file" {
+    source      = "./scripts/init.sh"
+    destination = "/root/init.sh"
+  }
+  provisioner "shell" {
+    inline = [
+      "chmod +x /root/init.sh",
+      "mkdir -p /root/init.d/"
+    ]
+  }
+
   # Setup Python 3
   provisioner "shell" {
     environment_vars = [
@@ -51,15 +63,17 @@ build {
   # Create step-down user
   provisioner "shell" {
     inline = [
-      "adduser -D -s /bin/zsh -g \"Cayde 6\" cayde",
-      "su cayde -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended\""
+      "adduser -D -s /bin/zsh -g \"Runtime User\" ${var.runtime_username}",
+      "su ${var.runtime_username} -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended\""
     ]
   }
 
   # Now use Ansible to setup the rest of the image
   provisioner "ansible-local" {
-    playbook_file   = "./ansible/playbooks/richs-dev-environment.yaml"
-    extra_arguments = ["--extra-vars", "\"target=localhost\""]
+    playbook_dir            = "./ansible/playbooks/"
+    playbook_file           = "./ansible/playbooks/richs-dev-environment.yaml"
+    extra_arguments         = ["--extra-vars", "\"target=localhost docker_user=${var.runtime_username}\""]
+    clean_staging_directory = true
   }
 
   # Clearing out package caches

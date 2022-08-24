@@ -1,0 +1,3 @@
+# Init script which will take care of setting up a proxy to the Docker socket to get around the issue with permissions for a non-roo
+
+socat UNIX-LISTEN:/var/run/docker.sock,fork,mode=660,user={{ docker_user }} UNIX-CONNECT:/var/run/docker-from-docker.sock &

@@ -7,7 +7,6 @@
             "extensions": [
                 "eamodio.gitlens",
                 "mhutchie.git-graph",
-                "equinusocio.vsc-community-material-theme",
                 "yzhang.markdown-all-in-one",
                 "redhat.vscode-yaml",
                 "sketchbuch.vsc-workspace-sidebar",
@@ -19,6 +18,7 @@
         }
     },
     "mounts" : [
-        "source=${localEnv:HOME}/.ssh,target=/home/cayde/.ssh,type=bind,consistency=cached"
+        "source=${localEnv:HOME}/.ssh,target=/home/cayde/.ssh,type=bind,consistency=cached",
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
     ]
 }

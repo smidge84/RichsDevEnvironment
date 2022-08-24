@@ -21,6 +21,13 @@
       - docker-compose-zsh-completion
 
   tasks:
+  - name: Assert Check
+    ansible.builtin.assert:
+      that:
+        - docker_user is defined
+        - docker_user | length > 0
+    register: assertResults
+
   - name: "Update package manager"
     ansible.builtin.apk:
       update_cache: yes
@@ -46,6 +53,16 @@
     ansible.builtin.debug:
       var: apk_result
 
+  - name: "Install socat for Docker socket proxying"
+    ansible.builtin.apk:
+      name: socat
+      state: present
+    register: apk_result
+  
+  - name: "PRINT"
+    ansible.builtin.debug:
+      var: apk_result
+
   - name: "Install supportig Python modules"
     ansible.builtin.pip:
       name:
@@ -55,3 +72,22 @@
   - name: "PRINT"
     ansible.builtin.debug:
       var: pip_result
+
+  - name: "Add runtime user ({{ docker_user }}) to the docker group"
+    ansible.builtin.user:
+      name: "{{ docker_user }}"
+      groups:
+        - docker
+      append: true
+
+  - name: "Check init script directory exists"
+    ansible.builtin.file:
+      path: "/root/init.d/"
+      state: directory
+      mode: 0755
+  
+  - name: "Copy init scripts (templates)"
+    ansible.builtin.template:
+      src: "{{ playbook_dir }}/templates/00-docker-socket.sh.j2"
+      dest: "/root/init.d/00-docker-socket.sh"
+      mode: 0755

@@ -31,3 +31,9 @@ variable "python3_version" {
   description = "Version of Python 3"
   default     = "latest"
 }
+
+variable "runtime_username" {
+  type        = string
+  description = "The username for the step-down user of the container"
+  default     = "cayde"
+}
